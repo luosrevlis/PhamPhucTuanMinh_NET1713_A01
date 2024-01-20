@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using PhamPhucTuanMinhWPF.CustomerManagement;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,10 @@ namespace PhamPhucTuanMinhWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(CustomerList customerList)
         {
             InitializeComponent();
+            frMain.Content = customerList;
         }
     }
 }

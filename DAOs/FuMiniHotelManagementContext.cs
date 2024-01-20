@@ -42,7 +42,6 @@ public partial class FuMiniHotelManagementContext : DbContext
             .AddJsonFile("appsettings.json", true, true)
             .Build();
         var conStr = config.GetConnectionString("FuMiniHotelManagementDb")!;
-        //var strConn = config["ConnectionStrings:FuMiniHotelManagementDb"];
         return conStr;
     }
 
