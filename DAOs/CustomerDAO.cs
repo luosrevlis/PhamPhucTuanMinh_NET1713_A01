@@ -11,12 +11,25 @@ namespace DAOs
             _db = db;
         }
 
-        public List<Customer> GetAll() => _db.Customers.ToList();
+        public List<Customer> GetAll()
+        {
+            return _db.Customers
+                .Where(customer => customer.CustomerStatus != (byte)Status.Deleted)
+                .ToList();
+        }
 
-        public Customer? FindById(int id) => _db.Customers.Find(id);
+        public Customer? FindById(int id)
+        {
+            return _db.Customers
+                .FirstOrDefault(customer => customer.CustomerId == id && customer.CustomerStatus != (byte)Status.Deleted);
+        }
 
         public List<Customer> FindByName(string name)
-            => _db.Customers.Where(customer => (customer.CustomerFullName ?? string.Empty).Contains(name)).ToList();
+        {
+            return _db.Customers
+                .Where(customer => (customer.CustomerFullName ?? string.Empty).Contains(name) && customer.CustomerStatus != (byte)Status.Deleted)
+                .ToList();
+        }
 
         public void Add(Customer customer)
         {
@@ -37,8 +50,8 @@ namespace DAOs
             {
                 return;
             }
-            _db.Customers.Remove(customer);
-            _db.SaveChanges();
+            customer.CustomerStatus = (byte)Status.Deleted;
+            Update(customer);
         }
     }
 }

@@ -12,11 +12,18 @@ namespace DAOs
             _db = db;
         }
 
-        public List<BookingReservation> GetAll() => _db.BookingReservations.Include(res => res.Customer).ToList();
+        public List<BookingReservation> GetAll()
+        {
+            return _db.BookingReservations
+                .Where(res => res.BookingStatus != (byte)Status.Deleted)
+                .Include(res => res.Customer)
+                .ToList();
+        }
 
         public BookingReservation? FindById(int id)
         {
-            var res = _db.BookingReservations.Find(id);
+            var res = _db.BookingReservations
+                .FirstOrDefault(res => res.BookingReservationId == id && res.BookingStatus != (byte)Status.Deleted);
             if (res == null)
             {
                 return null;
@@ -28,7 +35,9 @@ namespace DAOs
         }
 
         public List<BookingReservation> FindByPredicate(Func<BookingReservation, bool> predicate)
-            => _db.BookingReservations.Where(predicate).ToList();
+        {
+            return _db.BookingReservations.Where(predicate).ToList();
+        }
 
         public void Add(BookingReservation reservation)
         {
@@ -49,8 +58,8 @@ namespace DAOs
             {
                 return;
             }
-            _db.BookingReservations.Remove(res);
-            _db.SaveChanges();
+            res.BookingStatus = (byte)Status.Deleted;
+            Update(res);
         }
     }
 }

@@ -12,11 +12,18 @@ namespace DAOs
             _db = db;
         }
 
-        public List<RoomInformation> GetAll() => _db.RoomInformations.Include(info => info.RoomType).ToList();
+        public List<RoomInformation> GetAll()
+        {
+            return _db.RoomInformations
+                .Where(info => info.RoomStatus != (byte)Status.Deleted)
+                .Include(info => info.RoomType)
+                .ToList();
+        }
 
         public RoomInformation? FindById(int id)
         {
-            var info = _db.RoomInformations.Find(id);
+            var info = _db.RoomInformations
+                .FirstOrDefault(info => info.RoomId == id && info.RoomStatus != (byte)Status.Deleted);
             if (info == null)
             {
                 return null;
@@ -26,7 +33,9 @@ namespace DAOs
         }
 
         public List<RoomInformation> FindByPredicate(Func<RoomInformation, bool> predicate)
-            => _db.RoomInformations.Where(predicate).ToList();
+        {
+            return _db.RoomInformations.Where(predicate).ToList();
+        }
 
         public void Add(RoomInformation roomInformation)
         {
@@ -47,8 +56,8 @@ namespace DAOs
             {
                 return;
             }
-            _db.RoomInformations.Remove(room);
-            _db.SaveChanges();
+            room.RoomStatus = (byte)Status.Deleted;
+            Update(room);
         }
     }
 }
