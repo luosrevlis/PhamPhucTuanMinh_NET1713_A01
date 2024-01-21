@@ -12,14 +12,12 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
     {
         private readonly IRoomRepository _repository;
         private readonly IRoomTypeRepository _typeRepository;
-        private List<RoomType> _roomTypeList;
         
         public RoomList(IRoomRepository repository, IRoomTypeRepository typeRepository)
         {
             InitializeComponent();
             _repository = repository;
             _typeRepository = typeRepository;
-            _roomTypeList = new List<RoomType>();
         }
 
         private void LoadList()
@@ -28,25 +26,18 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
             dgList.ItemsSource = contents;
         }
 
-        private void LoadTypeList()
-        {
-            _roomTypeList = _typeRepository.GetAllRoomTypes();
-        }
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             LoadList();
-            LoadTypeList();
         }
 
         private void btnViewInfo_Click(object sender, RoutedEventArgs e)
         {
             RoomInformation roomInformation = (RoomInformation)dgList.SelectedItem;
-            RoomDetails roomDetails = new()
+            RoomDetails roomDetails = new(_typeRepository)
             {
                 Mode = Enums.WindowMode.View,
-                RoomInformation = roomInformation,
-                RoomTypeList = _roomTypeList
+                RoomInformation = roomInformation
             };
             roomDetails.ShowDialog();
         }
@@ -54,11 +45,10 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             RoomInformation roomInformation = new();
-            RoomDetails roomDetails = new()
+            RoomDetails roomDetails = new(_typeRepository)
             {
                 Mode = Enums.WindowMode.Add,
-                RoomInformation = roomInformation,
-                RoomTypeList = _roomTypeList
+                RoomInformation = roomInformation
             };
             if (roomDetails.ShowDialog() ?? false)
             {
@@ -70,11 +60,10 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             RoomInformation roomInformation = (RoomInformation)dgList.SelectedItem;
-            RoomDetails roomDetails = new()
+            RoomDetails roomDetails = new(_typeRepository)
             {
                 Mode = Enums.WindowMode.Edit,
-                RoomInformation = roomInformation,
-                RoomTypeList = _roomTypeList
+                RoomInformation = roomInformation
             };
             if (roomDetails.ShowDialog() ?? false)
             {

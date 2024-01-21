@@ -12,9 +12,10 @@
         <DataGrid x:Name="dgList" Height="NaN" Margin="0,240,0,0" VerticalContentAlignment="Bottom" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Room ID" Width="100" Binding="{Binding RoomId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Number" Width="220" Binding="{Binding RoomNumber}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Capacity" Width="220" Binding="{Binding RoomMaxCapacity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Price Per Day" Width="220" Binding="{Binding RoomPricePerDay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Number" Width="100" Binding="{Binding RoomNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Type" Width="200" Binding="{Binding RoomType.RoomTypeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Capacity" Width="100" Binding="{Binding RoomMaxCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Price Per Day" Width="200" Binding="{Binding RoomPricePerDay}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lbTitle" Content="Room Management" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" Width="338"/>

@@ -1,5 +1,6 @@
 ﻿using BusinessObjects;
 using PhamPhucTuanMinhWPF.Enums;
+using Repositories;
 using System.Windows;
 
 namespace PhamPhucTuanMinhWPF.RoomManagement
@@ -9,13 +10,14 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
     /// </summary>
     public partial class RoomDetails : Window
     {
+        private readonly IRoomTypeRepository _roomTypeRepository;
         public WindowMode Mode { get; set; } = WindowMode.View;
         public RoomInformation RoomInformation { get; set; } = new();
-        public List<RoomType> RoomTypeList { get; set; } = new();
 
-        public RoomDetails()
+        public RoomDetails(IRoomTypeRepository roomTypeRepository)
         {
             InitializeComponent();
+            _roomTypeRepository = roomTypeRepository;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -38,10 +40,11 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cbType.ItemsSource = RoomTypeList;
+            cbType.ItemsSource = _roomTypeRepository.GetAllRoomTypes();
             cbType.DisplayMemberPath = "RoomTypeName";
             cbType.SelectedValuePath = "RoomTypeId";
-            cbType.SelectedIndex = RoomInformation.RoomTypeId;
+
+            cbType.SelectedValue = RoomInformation.RoomTypeId;
             txtNumber.Text = RoomInformation.RoomNumber;
             txtCapacity.Text = RoomInformation.RoomMaxCapacity.ToString();
             txtPrice.Text = RoomInformation.RoomPricePerDay.ToString();

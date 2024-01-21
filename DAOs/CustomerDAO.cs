@@ -15,6 +15,7 @@ namespace DAOs
         {
             return _db.Customers
                 .Where(customer => customer.CustomerStatus != (byte)Status.Deleted)
+                .OrderBy(customer => customer.CustomerFullName)
                 .ToList();
         }
 
@@ -28,6 +29,7 @@ namespace DAOs
         {
             return _db.Customers
                 .Where(customer => (customer.CustomerFullName ?? string.Empty).Contains(name) && customer.CustomerStatus != (byte)Status.Deleted)
+                .OrderBy (customer => customer.CustomerFullName)
                 .ToList();
         }
 

@@ -17,6 +17,7 @@ namespace DAOs
             return _db.BookingReservations
                 .Where(res => res.BookingStatus != (byte)Status.Deleted)
                 .Include(res => res.Customer)
+                .OrderBy(res => res.Customer.CustomerFullName)
                 .ToList();
         }
 
@@ -29,14 +30,16 @@ namespace DAOs
                 return null;
             }
             res.Customer = _db.Customers.Find(res.CustomerId)!;
-            res.BookingDetails = _db.BookingDetails
-                .Where(details => details.BookingReservationId == res.BookingReservationId).ToList();
             return res;
         }
 
         public List<BookingReservation> FindByPredicate(Func<BookingReservation, bool> predicate)
         {
-            return _db.BookingReservations.Where(predicate).ToList();
+            return _db.BookingReservations
+                .Include(res => res.Customer)
+                .Where(predicate)
+                .OrderBy(res => res.Customer.CustomerFullName)
+                .ToList();
         }
 
         public void Add(BookingReservation reservation)

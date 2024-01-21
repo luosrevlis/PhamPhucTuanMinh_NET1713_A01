@@ -17,6 +17,7 @@ namespace DAOs
             return _db.RoomInformations
                 .Where(info => info.RoomStatus != (byte)Status.Deleted)
                 .Include(info => info.RoomType)
+                .OrderBy(info => info.RoomNumber)
                 .ToList();
         }
 
@@ -34,7 +35,11 @@ namespace DAOs
 
         public List<RoomInformation> FindByPredicate(Func<RoomInformation, bool> predicate)
         {
-            return _db.RoomInformations.Where(predicate).ToList();
+            return _db.RoomInformations
+                .Include(info => info.RoomType)
+                .Where(predicate)
+                .OrderBy(info => info.RoomNumber)
+                .ToList();
         }
 
         public void Add(RoomInformation roomInformation)

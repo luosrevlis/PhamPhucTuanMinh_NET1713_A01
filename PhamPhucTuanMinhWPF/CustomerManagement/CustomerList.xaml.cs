@@ -21,8 +21,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
 
         private void LoadList()
         {
-            var contents = _repository
-                .GetAllCustomers();
+            var contents = _repository.GetAllCustomers();
             dgList.ItemsSource = contents;
         }
 
