@@ -22,8 +22,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
         private void LoadList()
         {
             var contents = _repository
-                .GetAllCustomers()
-                .ToList();
+                .GetAllCustomers();
             dgList.ItemsSource = contents;
         }
 
@@ -35,7 +34,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
                 Customer = customer,
                 Mode = Enums.WindowMode.View
             };
-            customerDetails.Show();
+            customerDetails.ShowDialog();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -79,9 +78,10 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
             LoadList();
         }
 
-        private void btnReload_Click(object sender, RoutedEventArgs e)
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            LoadList();
+            var contents = _repository.FindCustomersByName(txtSearch.Text);
+            dgList.ItemsSource = contents;
         }
     }
 }

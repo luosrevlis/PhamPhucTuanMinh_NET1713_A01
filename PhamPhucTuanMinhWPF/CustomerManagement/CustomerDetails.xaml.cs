@@ -32,7 +32,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
             Close();
         }
 
-        private void onLoad(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             txtFullName.Text = Customer.CustomerFullName;
             txtPhone.Text = Customer.Telephone;

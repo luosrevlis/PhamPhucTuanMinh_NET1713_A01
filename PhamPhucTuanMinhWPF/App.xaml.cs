@@ -1,6 +1,7 @@
 ﻿using DAOs;
 using Microsoft.Extensions.DependencyInjection;
 using PhamPhucTuanMinhWPF.CustomerManagement;
+using PhamPhucTuanMinhWPF.RoomManagement;
 using Repositories;
 using Repositories.Impl;
 using System.Configuration;
@@ -28,12 +29,16 @@ namespace PhamPhucTuanMinhWPF
             services.AddSingleton<MainWindow>();
             services.AddSingleton<CustomerList>();
             services.AddSingleton<CustomerDetails>();
+            services.AddSingleton<RoomList>();
+            services.AddSingleton<RoomDetails>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
+            services.AddTransient<IRoomRepository, RoomRepository>();
+            services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
             services.AddSingleton<CustomerDAO>();
-            services.AddSingleton<RoomDAO>();
             services.AddSingleton<ReservationDAO>();
+            services.AddSingleton<RoomDAO>();
+            services.AddSingleton<RoomTypeDAO>();
             services.AddDbContext<FuMiniHotelManagementContext>();
         }
 
