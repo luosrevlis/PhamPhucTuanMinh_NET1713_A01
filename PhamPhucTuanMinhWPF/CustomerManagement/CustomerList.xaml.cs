@@ -32,7 +32,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
                 return;
             }
             Customer customer = (Customer)dgList.SelectedItem;
-            CustomerDetails customerDetails = new()
+            CustomerDetails customerDetails = new(_repository)
             {
                 Customer = customer,
                 Mode = Enums.WindowMode.View
@@ -43,7 +43,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             Customer customer = new();
-            CustomerDetails customerDetails = new()
+            CustomerDetails customerDetails = new(_repository)
             {
                 Customer = customer,
                 Mode = Enums.WindowMode.Add
@@ -62,7 +62,7 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
                 return;
             }
             Customer customer = (Customer)dgList.SelectedItem;
-            CustomerDetails customerDetails = new()
+            CustomerDetails customerDetails = new(_repository)
             {
                 Customer = customer,
                 Mode = Enums.WindowMode.Edit
