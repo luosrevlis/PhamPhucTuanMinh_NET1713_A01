@@ -18,17 +18,13 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
             InitializeComponent();
             _repository = repository;
             _typeRepository = typeRepository;
+            LoadList();
         }
 
         private void LoadList()
         {
             var contents = _repository.GetAllRooms();
             dgList.ItemsSource = contents;
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadList();
         }
 
         private void btnViewInfo_Click(object sender, RoutedEventArgs e)

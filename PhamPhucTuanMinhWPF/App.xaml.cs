@@ -1,5 +1,6 @@
 ﻿using DAOs;
 using Microsoft.Extensions.DependencyInjection;
+using PhamPhucTuanMinhWPF.BookingManagement;
 using PhamPhucTuanMinhWPF.CustomerManagement;
 using PhamPhucTuanMinhWPF.RoomManagement;
 using Repositories;
@@ -29,6 +30,7 @@ namespace PhamPhucTuanMinhWPF
             services.AddSingleton<MainWindow>();
             services.AddSingleton<CustomerList>();
             services.AddSingleton<RoomList>();
+            services.AddSingleton<BookingList>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDetailRepository, DetailRepository>();
             services.AddTransient<IReservationRepository, ReservationRepository>();

@@ -8,7 +8,7 @@
       d:DesignHeight="550" d:DesignWidth="800"
       Title="RoomList">
 
-    <Grid Background="#FFF1E2E2" Loaded="Grid_Loaded">
+    <Grid Background="#FFF1E2E2">
         <DataGrid x:Name="dgList" Height="NaN" Margin="0,240,0,0" VerticalContentAlignment="Bottom" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Room ID" Width="100" Binding="{Binding RoomId}"></DataGridTextColumn>
