@@ -36,6 +36,7 @@ namespace DAOs
         public List<BookingReservation> FindByPredicate(Func<BookingReservation, bool> predicate)
         {
             return _db.BookingReservations
+                .Where(res => res.BookingStatus != (byte)Status.Deleted)
                 .Include(res => res.Customer)
                 .Where(predicate)
                 .OrderBy(res => res.Customer.CustomerFullName)

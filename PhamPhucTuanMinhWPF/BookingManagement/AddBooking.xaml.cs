@@ -17,7 +17,10 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
         private List<RoomInformation> _rooms = new();
         public BookingReservation BookingReservation { get; set; } = new();
 
-        public AddBooking(ICustomerRepository customerRepository, IDetailRepository detailRepository, IRoomRepository roomRepository)
+        public AddBooking(
+            ICustomerRepository customerRepository,
+            IDetailRepository detailRepository,
+            IRoomRepository roomRepository)
         {
             InitializeComponent();
             _customerRepository = customerRepository;

@@ -29,7 +29,7 @@ namespace DAOs
         {
             return _db.Customers
                 .Where(customer => (customer.CustomerFullName ?? string.Empty).Contains(name) && customer.CustomerStatus != (byte)Status.Deleted)
-                .OrderBy (customer => customer.CustomerFullName)
+                .OrderBy(customer => customer.CustomerFullName)
                 .ToList();
         }
 
@@ -52,8 +52,18 @@ namespace DAOs
             {
                 return;
             }
+
+            var reservations = _db.BookingReservations
+                .Where(res => res.CustomerId == id && res.BookingStatus != (byte)Status.Deleted)
+                .ToList();
+            foreach(var reservation in reservations)
+            {
+                _db.BookingReservations.Remove(reservation);
+            }
+
             customer.CustomerStatus = (byte)Status.Deleted;
-            Update(customer);
+            _db.Customers.Update(customer);
+            _db.SaveChanges();
         }
     }
 }

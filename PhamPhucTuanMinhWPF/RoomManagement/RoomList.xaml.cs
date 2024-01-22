@@ -75,8 +75,8 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
             {
                 RoomInformation roomInformation = (RoomInformation)dgList.SelectedItem;
                 _repository.DeleteRoom(roomInformation.RoomId);
+                LoadList();
             }
-            LoadList();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)

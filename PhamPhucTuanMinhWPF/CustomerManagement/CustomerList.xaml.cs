@@ -73,8 +73,8 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
             {
                 Customer customer = (Customer)dgList.SelectedItem;
                 _repository.DeleteCustomer(customer.CustomerId);
+                LoadList();
             }
-            LoadList();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
