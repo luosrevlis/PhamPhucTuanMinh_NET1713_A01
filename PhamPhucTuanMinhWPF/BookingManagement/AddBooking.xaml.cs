@@ -1,18 +1,6 @@
 ﻿using BusinessObjects;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PhamPhucTuanMinhWPF.BookingManagement
 {
@@ -26,6 +14,7 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
         private readonly IRoomRepository _roomRepository;
         private DateTime _startDate;
         private DateTime _endDate;
+        private List<RoomInformation> _rooms = new();
         public BookingReservation BookingReservation { get; set; } = new();
 
         public AddBooking(ICustomerRepository customerRepository, IDetailRepository detailRepository, IRoomRepository roomRepository)
@@ -47,34 +36,49 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
         {
             if (dtFrom.SelectedDate == null || dtTo.SelectedDate == null)
             {
+                MessageBox.Show("Start date and end date cannot be empty!", "Error");
                 return;
             }
+            if (MessageBox.Show("This action will clear booking details. Continue?", "Warning", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            _startDate = (DateTime)dtFrom.SelectedDate;
+            _endDate = (DateTime)dtTo.SelectedDate;
             var overlaps = _detailRepository
-                .FindBookingDetails(det => det.StartDate <= dtTo.SelectedDate && dtFrom.SelectedDate <= det.EndDate)
+                .FindBookingDetails(det => det.StartDate <= _startDate && _endDate <= det.EndDate)
                 .Select(det => det.RoomId)
                 .Distinct()
                 .ToList();
-            var availableRooms = _roomRepository.GetAllRooms();
-            availableRooms.RemoveAll(room => overlaps.Contains(room.RoomId));
-            dgRooms.ItemsSource = availableRooms;
-            _startDate = (DateTime)dtFrom.SelectedDate;
-            _endDate = (DateTime)dtTo.SelectedDate;
+            _rooms = _roomRepository.GetAllRooms();
+            _rooms.RemoveAll(room => overlaps.Contains(room.RoomId));
+            dgRooms.ItemsSource = _rooms;
+
+            BookingReservation.BookingDetails = new List<BookingDetail>();
+            dgBookingDetail.ItemsSource = BookingReservation.BookingDetails;
+            BookingReservation.TotalPrice = 0;
+            lbPrice.Content = "Total price:\n0";
         }
 
         private void btnAddRoom_Click(object sender, RoutedEventArgs e)
         {
             RoomInformation roomInformation = (RoomInformation)dgRooms.SelectedItem;
             int timeByDays = (int)(_endDate - _startDate).TotalDays;
-            BookingDetail bookingDetail = new BookingDetail()
+            BookingDetail bookingDetail = new()
             {
                 RoomId = roomInformation.RoomId,
                 StartDate = _startDate,
                 EndDate = _endDate,
                 ActualPrice = roomInformation.RoomPricePerDay * timeByDays,
+                Room = roomInformation
             };
             BookingReservation.BookingDetails.Add(bookingDetail);
             dgBookingDetail.ItemsSource = BookingReservation.BookingDetails;
-            //todo: update price and available rooms
+
+            _rooms.Remove(roomInformation);
+            dgRooms.ItemsSource = _rooms;
+            BookingReservation.TotalPrice += bookingDetail.ActualPrice;
+            lbPrice.Content = "Total price:\n" + BookingReservation.TotalPrice;
         }
 
         private void btnRemoveRoom_Click(object sender, RoutedEventArgs e)
@@ -82,12 +86,17 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
             BookingDetail bookingDetail = (BookingDetail)dgRooms.SelectedItem;
             BookingReservation.BookingDetails.Remove(bookingDetail);
             dgBookingDetail.ItemsSource = BookingReservation.BookingDetails;
-            //todo: update price and available rooms
+
+            _rooms.Add(bookingDetail.Room);
+            dgRooms.ItemsSource = _rooms;
+            BookingReservation.TotalPrice -= bookingDetail.ActualPrice;
+            lbPrice.Content = "Total price:\n" + BookingReservation.TotalPrice;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            //todo: business logic
+            BookingReservation.Customer = (Customer)cbCustomer.SelectedItem;
+            BookingReservation.BookingDate = DateTime.UtcNow;
             DialogResult = true;
             Close();
         }
