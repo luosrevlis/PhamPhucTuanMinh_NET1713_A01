@@ -24,5 +24,6 @@
         <Button x:Name="btnDelete" Content="Delete" Height="28" Margin="626,189,59,333" Click="btnDelete_Click"/>
         <Button x:Name="btnSearch" Height="28" Margin="626,118,59,404" Click="btnSearch_Click" Content="Search By Name"/>
         <TextBox x:Name="txtSearch" Margin="42,118,227,404" TextWrapping="Wrap"/>
+        <Label x:Name="lbName" Content="Name" HorizontalAlignment="Left" Margin="42,87,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

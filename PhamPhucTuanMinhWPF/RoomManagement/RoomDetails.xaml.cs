@@ -48,6 +48,7 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
             cbType.ItemsSource = _roomTypeRepository.GetAllRoomTypes();
             cbType.DisplayMemberPath = "RoomTypeName";
             cbType.SelectedValuePath = "RoomTypeId";
+            cbType.SelectedIndex = 0;
 
             cbType.SelectedValue = RoomInformation.RoomTypeId;
             txtNumber.Text = RoomInformation.RoomNumber;

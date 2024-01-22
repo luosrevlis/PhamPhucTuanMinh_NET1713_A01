@@ -1,4 +1,5 @@
 ﻿using DAOs;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PhamPhucTuanMinhWPF.BookingManagement;
 using PhamPhucTuanMinhWPF.CustomerManagement;
@@ -7,6 +8,7 @@ using Repositories;
 using Repositories.Impl;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Windows;
 
 namespace PhamPhucTuanMinhWPF
@@ -20,13 +22,19 @@ namespace PhamPhucTuanMinhWPF
 
         public App()
         {
-            ServiceCollection services = new ServiceCollection();
+            ServiceCollection services = new();
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+            services.AddSingleton(configuration);
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<Login>();
             services.AddSingleton<MainWindow>();
             services.AddSingleton<CustomerList>();
             services.AddSingleton<RoomList>();
@@ -46,8 +54,8 @@ namespace PhamPhucTuanMinhWPF
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = serviceProvider.GetService<MainWindow>()!;
-            mainWindow.Show();
+            var login = serviceProvider.GetService<Login>()!;
+            login.Show();
         }
     }
 }

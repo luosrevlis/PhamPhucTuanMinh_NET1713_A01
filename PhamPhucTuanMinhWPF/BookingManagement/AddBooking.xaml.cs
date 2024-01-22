@@ -33,6 +33,7 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
             cbCustomer.ItemsSource = _customerRepository.GetAllCustomers();
             cbCustomer.DisplayMemberPath = "CustomerFullName";
             cbCustomer.SelectedValuePath = "CustomerId";
+            cbCustomer.SelectedIndex = 0;
         }
 
         private void btnSearchRooms_Click(object sender, RoutedEventArgs e)

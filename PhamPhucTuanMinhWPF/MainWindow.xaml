@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhamPhucTuanMinhWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="800" MinWidth="800" MinHeight="650">
+        Title="FU Mini Hotel Management" Height="650" Width="800" MinWidth="800" MinHeight="650" MaxWidth="800" MaxHeight="650" Closed="Window_Closed" WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame x:Name="frMain" NavigationUIVisibility="Visible" Margin="0,0,0,109" Height="575" MinHeight="575" Width="800" MinWidth="800"/>
+        <Button x:Name="btnBooking" Content="Booking Management" HorizontalAlignment="Left" Margin="86,0,0,26" Width="150" Click="btnBooking_Click" Height="28" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnRoom" Content="Room Management" HorizontalAlignment="Left" Margin="320,0,0,26" VerticalAlignment="Bottom" Height="28" Width="150" Click="btnRoom_Click"/>
+        <Button x:Name="btnCustomer" Content="Customer Management" HorizontalAlignment="Left" Margin="554,0,0,26" VerticalAlignment="Bottom" Height="28" Width="150" Click="btnCustomer_Click"/>
 
     </Grid>
 </Window>
