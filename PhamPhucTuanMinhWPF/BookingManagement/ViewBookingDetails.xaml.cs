@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessObjects;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PhamPhucTuanMinhWPF.BookingManagement
 {
@@ -19,9 +8,19 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
     /// </summary>
     public partial class ViewBookingDetails : Window
     {
-        public ViewBookingDetails()
+        public ViewBookingDetails(BookingReservation res)
         {
             InitializeComponent();
+            txtCustomer.Text = res.Customer.CustomerFullName;
+            dtFrom.SelectedDate = res.BookingDetails.First().StartDate;
+            dtTo.SelectedDate = res.BookingDetails.First().EndDate;
+            txtPrice.Text = res.TotalPrice.ToString();
+            dgBookingDetail.ItemsSource = res.BookingDetails;
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhamPhucTuanMinhWPF.BookingManagement"
         mc:Ignorable="d"
-        Title="ViewBookingDetails" Height="450" Width="800">
+        Title="ViewBookingDetails" Height="500" Width="650" MinHeight="500" MaxHeight="500" MinWidth="650" MaxWidth="650">
     <Grid>
-        
+        <Label x:Name="lbCustomer" Content="Customer" HorizontalAlignment="Left" Margin="52,37,0,0" VerticalAlignment="Top" Height="28"/>
+
+        <Label x:Name="lbFrom" Content="From" HorizontalAlignment="Left" Margin="52,84,0,0" VerticalAlignment="Top" Height="28"/>
+        <DatePicker x:Name="dtFrom" HorizontalAlignment="Left" Margin="140,84,0,0" VerticalAlignment="Top" Height="28" Width="170" IsEnabled="False"/>
+        <Label x:Name="lbTo" Content="To" HorizontalAlignment="Left" Margin="359,84,0,0" VerticalAlignment="Top" Height="28"/>
+        <DatePicker x:Name="dtTo" HorizontalAlignment="Left" Margin="425,84,0,0" VerticalAlignment="Top" Width="170" Height="28" IsEnabled="False"/>
+
+        <Label x:Name="lbBookingDetail" Content="Booking Detail:" HorizontalAlignment="Left" Margin="52,180,0,0" VerticalAlignment="Top" Height="28" Width="100"/>
+        <DataGrid x:Name="dgBookingDetail" Margin="52,227,0,0" Height="172" VerticalAlignment="Top" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left" Width="543" IsEnabled="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room Number" Width="100" Binding="{Binding Room.RoomNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Type" Width="150" Binding="{Binding Room.RoomType.RoomTypeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Capacity" Width="100" Binding="{Binding Room.RoomMaxCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Booking Price" Width="150" Binding="{Binding ActualPrice}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Center" Margin="0,428,0,0" VerticalAlignment="Top" Height="28" Width="200" Click="btnOk_Click"/>
+        <TextBox x:Name="txtCustomer" HorizontalAlignment="Left" Margin="140,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="455" Height="28" IsEnabled="False"/>
+        <Label x:Name="lbPrice" Content="Total Price" HorizontalAlignment="Left" Margin="52,134,0,0" VerticalAlignment="Top" Height="28"/>
+        <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="140,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="455" Height="28" IsEnabled="False"/>
     </Grid>
 </Window>
