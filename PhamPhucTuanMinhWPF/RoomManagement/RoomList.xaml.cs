@@ -29,6 +29,10 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
 
         private void btnViewInfo_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not RoomInformation)
+            {
+                return;
+            }
             RoomInformation roomInformation = (RoomInformation)dgList.SelectedItem;
             RoomDetails roomDetails = new(_typeRepository)
             {
@@ -55,6 +59,10 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not RoomInformation)
+            {
+                return;
+            }
             RoomInformation roomInformation = (RoomInformation)dgList.SelectedItem;
             RoomDetails roomDetails = new(_typeRepository)
             {
@@ -70,6 +78,10 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not RoomInformation)
+            {
+                return;
+            }
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this room?", "Delete confirmation", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {

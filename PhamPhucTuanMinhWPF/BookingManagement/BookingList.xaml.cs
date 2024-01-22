@@ -1,19 +1,7 @@
 ﻿using BusinessObjects;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PhamPhucTuanMinhWPF.BookingManagement
 {
@@ -49,6 +37,10 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
 
         private void btnViewInfo_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not BookingReservation)
+            {
+                return;
+            }
             BookingReservation res = (BookingReservation)dgList.SelectedItem; // todo check null
             res.BookingDetails = _detailRepository.FindBookingDetails(det => det.BookingReservationId == res.BookingReservationId);
             ViewBookingDetails view = new(res);
@@ -71,6 +63,10 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not BookingReservation)
+            {
+                return;
+            }
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this reservation?", "Delete confirmation", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {
@@ -82,7 +78,31 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            var contents = _repository.FindReservations(res =>
+            {
+                if (!string.IsNullOrEmpty(txtCustomer.Text) && !(res.Customer.CustomerFullName ?? string.Empty).Contains(txtCustomer.Text))
+                {
+                    return false;
+                }
+                if (dtBookingFrom.SelectedDate != null && res.BookingDate < dtBookingFrom.SelectedDate)
+                {
+                    return false;
+                }
+                if (dtBookingTo.SelectedDate != null && res.BookingDate > dtBookingTo.SelectedDate)
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(txtPriceFrom.Text) && res.TotalPrice < int.Parse(txtPriceFrom.Text))
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(txtPriceTo.Text) && res.TotalPrice >  int.Parse(txtPriceTo.Text))
+                {
+                    return false;
+                }
+                return true;
+            });
+            dgList.ItemsSource = contents;
         }
     }
 }

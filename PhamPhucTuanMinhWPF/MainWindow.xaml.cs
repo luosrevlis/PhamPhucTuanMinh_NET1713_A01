@@ -1,4 +1,5 @@
-﻿using PhamPhucTuanMinhWPF.CustomerManagement;
+﻿using PhamPhucTuanMinhWPF.BookingManagement;
+using PhamPhucTuanMinhWPF.CustomerManagement;
 using PhamPhucTuanMinhWPF.RoomManagement;
 using System.Text;
 using System.Windows;
@@ -18,10 +19,10 @@ namespace PhamPhucTuanMinhWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(CustomerList customerList, RoomList roomList)
+        public MainWindow(CustomerList customerList, RoomList roomList, BookingList bookingList)
         {
             InitializeComponent();
-            frMain.Content = roomList;
+            frMain.Content = bookingList;
         }
     }
 }

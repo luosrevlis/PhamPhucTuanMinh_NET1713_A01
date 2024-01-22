@@ -65,6 +65,10 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
 
         private void btnAddRoom_Click(object sender, RoutedEventArgs e)
         {
+            if (dgRooms.SelectedItem is not RoomInformation)
+            {
+                return;
+            }
             RoomInformation roomInformation = (RoomInformation)dgRooms.SelectedItem;
             int timeByDays = (int)(_endDate - _startDate).TotalDays;
             BookingDetail bookingDetail = new()
@@ -76,9 +80,11 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
                 Room = roomInformation
             };
             BookingReservation.BookingDetails.Add(bookingDetail);
+            dgBookingDetail.ItemsSource = null;
             dgBookingDetail.ItemsSource = BookingReservation.BookingDetails;
 
             _rooms.Remove(roomInformation);
+            dgRooms.ItemsSource = null;
             dgRooms.ItemsSource = _rooms;
             BookingReservation.TotalPrice += bookingDetail.ActualPrice;
             lbPrice.Content = "Total price:\n" + BookingReservation.TotalPrice;
@@ -86,11 +92,17 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
 
         private void btnRemoveRoom_Click(object sender, RoutedEventArgs e)
         {
-            BookingDetail bookingDetail = (BookingDetail)dgRooms.SelectedItem;
+            if (dgBookingDetail.SelectedItem is not BookingDetail)
+            {
+                return;
+            }
+            BookingDetail bookingDetail = (BookingDetail)dgBookingDetail.SelectedItem;
             BookingReservation.BookingDetails.Remove(bookingDetail);
+            dgBookingDetail.ItemsSource = null;
             dgBookingDetail.ItemsSource = BookingReservation.BookingDetails;
 
             _rooms.Add(bookingDetail.Room);
+            dgRooms.ItemsSource = null;
             dgRooms.ItemsSource = _rooms;
             BookingReservation.TotalPrice -= bookingDetail.ActualPrice;
             lbPrice.Content = "Total price:\n" + BookingReservation.TotalPrice;

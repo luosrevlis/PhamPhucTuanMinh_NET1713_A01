@@ -9,33 +9,27 @@
       Title="BookingList">
 
     <Grid Background="#FFF1E2E2">
-        <DataGrid x:Name="dgList" Height="NaN" Margin="0,290,0,0" VerticalContentAlignment="Bottom" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <DataGrid x:Name="dgList" Height="NaN" Margin="0,253,0,0" VerticalContentAlignment="Bottom" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Room ID" Width="100" Binding="{Binding RoomId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Number" Width="100" Binding="{Binding RoomNumber}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Type" Width="200" Binding="{Binding RoomType.RoomTypeName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Capacity" Width="100" Binding="{Binding RoomMaxCapacity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Room Price Per Day" Width="200" Binding="{Binding RoomPricePerDay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer" Width="200" Binding="{Binding Customer.CustomerFullName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Booking Date" Width="200" Binding="{Binding BookingDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total Price" Width="200" Binding="{Binding TotalPrice}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lbTitle" Content="Booking Management" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" Width="366"/>
-        <Button x:Name="btnViewInfo" Content="View Info" Height="28" Margin="49,232,551,290" Click="btnViewInfo_Click"/>
-        <Button x:Name="btnAdd" Content="Add" Height="28" Margin="300,232,300,290" Click="btnAdd_Click"/>
-        <Button x:Name="btnDelete" Content="Delete" Height="28" Margin="548,232,52,290" Click="btnDelete_Click"/>
-        <Button x:Name="btnSearch" Margin="692,113,52,376" Click="btnSearch_Click" Content="Search"/>
+        <Button x:Name="btnViewInfo" Content="View Info" Height="28" Margin="49,199,551,323" Click="btnViewInfo_Click"/>
+        <Button x:Name="btnAdd" Content="Add" Height="28" Margin="300,199,300,323" Click="btnAdd_Click"/>
+        <Button x:Name="btnDelete" Content="Delete" Height="28" Margin="548,199,52,323" Click="btnDelete_Click"/>
+        <Button x:Name="btnSearch" Margin="692,113,52,409" Click="btnSearch_Click" Content="Search"/>
         <TextBox x:Name="txtCustomer" Margin="178,80,162,442" TextWrapping="Wrap" Height="28"/>
-        <Label x:Name="lbStartDate" Content="Start Date" Margin="50,146,630,376" Height="28" Width="120"/>
         <Label x:Name="lbCustomer" Content="Customer" Margin="50,80,630,442" Height="28" Width="120"/>
-        <Label x:Name="lbEndDate" Content="End Date" Margin="368,146,352,376" Height="28" Width="80"/>
-        <Label x:Name="lbBookingTo" Content="To" Margin="368,113,352,409" Height="28" Width="80"/>
+        <Label x:Name="lbBookingTo" Content="To" Margin="417,113,333,409" Height="28" Width="50"/>
         <Label x:Name="lbBookingFrom" Content="Booking Date From" Margin="50,113,630,409" Height="28" Width="120"/>
-        <TextBox x:Name="txtPriceFrom" Margin="178,179,458,343" TextWrapping="Wrap" Height="28" InputScope="Number"/>
-        <TextBox x:Name="txtPriceTo" Margin="472,179,162,343" TextWrapping="Wrap" Height="28" InputScope="Number"/>
-        <Label x:Name="lbPriceFrom" Content="Price From" Margin="50,179,630,343" Height="28" Width="120"/>
-        <Label x:Name="lbPriceTo" Content="To" Margin="368,179,352,343" Height="28" Width="80"/>
-        <DatePicker x:Name="dtBookingTo" HorizontalAlignment="Left" Margin="472,113,0,0" VerticalAlignment="Top" Width="166" Height="28"/>
-        <DatePicker x:Name="dtBookingFrom" HorizontalAlignment="Left" Margin="178,113,0,0" VerticalAlignment="Top" Width="166" Height="28"/>
-        <DatePicker x:Name="dtStartDate" HorizontalAlignment="Left" Margin="178,146,0,0" VerticalAlignment="Top" Width="166" Height="28"/>
-        <DatePicker x:Name="dtEndDate" HorizontalAlignment="Left" Margin="472,146,0,0" VerticalAlignment="Top" Width="166" Height="28"/>
+        <TextBox x:Name="txtPriceFrom" Margin="178,146,456,376" TextWrapping="Wrap" Height="28" InputScope="Number"/>
+        <TextBox x:Name="txtPriceTo" Margin="472,146,162,376" TextWrapping="Wrap" Height="28" InputScope="Number"/>
+        <Label x:Name="lbPriceFrom" Content="Price From" Margin="50,146,630,376" Height="28" Width="120"/>
+        <Label x:Name="lbPriceTo" Content="To" Margin="417,146,333,376" Height="28" Width="50"/>
+        <DatePicker x:Name="dtBookingTo" HorizontalAlignment="Left" Margin="472,113,0,0" VerticalAlignment="Top" Width="166" Height="28" Background="White"/>
+        <DatePicker x:Name="dtBookingFrom" HorizontalAlignment="Left" Margin="178,113,0,0" VerticalAlignment="Top" Width="166" Height="28" AutomationProperties.IsOffscreenBehavior="Onscreen" Background="White"/>
     </Grid>
 </Page>

@@ -27,6 +27,10 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
 
         private void btnViewInfo_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not Customer)
+            {
+                return;
+            }
             Customer customer = (Customer)dgList.SelectedItem;
             CustomerDetails customerDetails = new()
             {
@@ -53,6 +57,10 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not Customer)
+            {
+                return;
+            }
             Customer customer = (Customer)dgList.SelectedItem;
             CustomerDetails customerDetails = new()
             {
@@ -68,6 +76,10 @@ namespace PhamPhucTuanMinhWPF.CustomerManagement
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (dgList.SelectedItem is not Customer)
+            {
+                return;
+            }
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this customer?", "Delete confirmation", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {
