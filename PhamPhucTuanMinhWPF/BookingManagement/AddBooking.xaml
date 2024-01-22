@@ -7,26 +7,42 @@
         mc:Ignorable="d"
         Title="AddBooking" Height="700" Width="800" MinHeight="700" MaxHeight="700" MinWidth="800" MaxWidth="800" Loaded="Window_Loaded">
     <Grid>
-        <Label x:Name="lbPrice" Content="Total price:&#xD;&#xA;0" HorizontalAlignment="Left" Margin="642,521,0,0" VerticalAlignment="Top" Height="60" Width="100"/>
-        <DatePicker x:Name="dtTo" HorizontalAlignment="Left" Margin="419,84,0,0" VerticalAlignment="Top" Width="170" Height="28"/>
-        <ComboBox x:Name="cbCustomer" HorizontalAlignment="Left" Margin="134,37,0,0" VerticalAlignment="Top" Width="608" Height="28"/>
-        <DataGrid x:Name="dgRooms" Margin="46,168,211,0" Height="172" VerticalAlignment="Top"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="462,614,0,0" VerticalAlignment="Top" Height="28" Width="280" Click="btnCancel_Click"/>
         <Label x:Name="lbCustomer" Content="Customer" HorizontalAlignment="Left" Margin="46,37,0,0" VerticalAlignment="Top" Height="28"/>
-        <Label x:Name="lbTo" Content="To" HorizontalAlignment="Left" Margin="353,84,0,0" VerticalAlignment="Top" Height="28"/>
+        <ComboBox x:Name="cbCustomer" HorizontalAlignment="Left" Margin="134,37,0,0" VerticalAlignment="Top" Width="608" Height="28"/>
+
         <Label x:Name="lbFrom" Content="From" HorizontalAlignment="Left" Margin="46,84,0,0" VerticalAlignment="Top" Height="28"/>
         <DatePicker x:Name="dtFrom" HorizontalAlignment="Left" Margin="134,84,0,0" VerticalAlignment="Top" Height="28" Width="170"/>
+        <Label x:Name="lbTo" Content="To" HorizontalAlignment="Left" Margin="353,84,0,0" VerticalAlignment="Top" Height="28"/>
+        <DatePicker x:Name="dtTo" HorizontalAlignment="Left" Margin="419,84,0,0" VerticalAlignment="Top" Width="170" Height="28"/>
         <Button x:Name="btnSearchRooms" Content="Search Rooms" HorizontalAlignment="Left" Margin="642,84,0,0" VerticalAlignment="Top" Height="28" Width="100" Click="btnSearchRooms_Click"/>
+        
+        <Label x:Name="lbRooms" Content="Available Rooms:" HorizontalAlignment="Left" Margin="46,125,0,0" VerticalAlignment="Top" Height="28" Width="100"/>
+        <DataGrid x:Name="dgRooms" Margin="46,168,211,0" Height="172" VerticalAlignment="Top" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room Number" Width="100" Binding="{Binding RoomNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Type" Width="150" Binding="{Binding RoomType.RoomTypeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Capacity" Width="100" Binding="{Binding RoomMaxCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Price Per Day" Width="150" Binding="{Binding RoomPricePerDay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="btnAddRoom" HorizontalAlignment="Left" Margin="642,224,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="btnAddRoom_Click">
             <TextBlock Text="Add Room To Booking Reservation" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
+
+        <Label x:Name="lbBookingDetail" Content="Booking Detail:" HorizontalAlignment="Left" Margin="46,360,0,0" VerticalAlignment="Top" Height="28" Width="100"/>
+        <DataGrid x:Name="dgBookingDetail" Margin="46,409,211,0" Height="172" VerticalAlignment="Top" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room Number" Width="100" Binding="{Binding Room.RoomNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Type" Width="150" Binding="{Binding Room.RoomType.RoomTypeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Room Capacity" Width="100" Binding="{Binding Room.RoomMaxCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Booking Price" Width="150" Binding="{Binding ActualPrice}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="btnRemoveRoom" HorizontalAlignment="Left" Margin="642,409,0,0" VerticalAlignment="Top" Height="60" Width="100" Click="btnRemoveRoom_Click">
             <TextBlock Text="Remove Room From Booking Reservation" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
+        <Label x:Name="lbPrice" Content="Total price:&#xD;&#xA;0" HorizontalAlignment="Left" Margin="642,521,0,0" VerticalAlignment="Top" Height="60" Width="100"/>
         <Button x:Name="btnOk" Content="Create Booking" HorizontalAlignment="Left" Margin="46,614,0,0" VerticalAlignment="Top" Height="28" Width="280" Click="btnOk_Click"/>
-        <DataGrid x:Name="dgBookingDetail" Margin="46,409,211,0" Height="172" VerticalAlignment="Top"/>
-        <Label x:Name="lbRooms" Content="Available Rooms:" HorizontalAlignment="Left" Margin="46,125,0,0" VerticalAlignment="Top" Height="28" Width="100"/>
-        <Label x:Name="lbBookingDetail" Content="Booking Detail:" HorizontalAlignment="Left" Margin="46,360,0,0" VerticalAlignment="Top" Height="28" Width="100"/>
-
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="462,614,0,0" VerticalAlignment="Top" Height="28" Width="280" Click="btnCancel_Click"/>
     </Grid>
 </Window>
