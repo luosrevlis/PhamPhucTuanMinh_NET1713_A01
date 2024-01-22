@@ -33,6 +33,11 @@ namespace DAOs
                 .ToList();
         }
 
+        public Customer? FindByEmail(string email)
+        {
+            return _db.Customers.FirstOrDefault(customer => customer.EmailAddress == email);
+        }
+
         public void Add(Customer customer)
         {
             _db.Customers.Add(customer);

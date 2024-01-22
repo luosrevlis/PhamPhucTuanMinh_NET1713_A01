@@ -17,6 +17,8 @@ namespace Repositories.Impl
         public void DeleteCustomer(int id) => _dao.Delete(id);
 
         public Customer? FindCustomerById(int id) => _dao.FindById(id);
+        
+        public Customer? FindCustomerByEmail(string email) => _dao.FindByEmail(email);
 
         public List<Customer> FindCustomersByName(string name) => _dao.FindByName(name);
 

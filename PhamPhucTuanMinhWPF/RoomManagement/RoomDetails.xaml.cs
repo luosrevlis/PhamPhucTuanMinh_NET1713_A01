@@ -22,6 +22,11 @@ namespace PhamPhucTuanMinhWPF.RoomManagement
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(txtNumber.Text))
+            {
+                MessageBox.Show("Room number cannot be empty!", "Error");
+                return;
+            }
             RoomInformation.RoomNumber = txtNumber.Text;
             RoomInformation.RoomMaxCapacity = int.Parse(txtCapacity.Text);
             RoomInformation.RoomPricePerDay = decimal.Parse(txtPrice.Text);

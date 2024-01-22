@@ -39,7 +39,12 @@ namespace PhamPhucTuanMinhWPF.BookingManagement
         {
             if (dtFrom.SelectedDate == null || dtTo.SelectedDate == null)
             {
-                MessageBox.Show("Start date and end date cannot be empty!", "Error");
+                MessageBox.Show("The start date and end date cannot be empty!", "Error");
+                return;
+            }
+            if (dtFrom.SelectedDate >= dtTo.SelectedDate)
+            {
+                MessageBox.Show("The end date must be at least 1 day after the start date!", "Error");
                 return;
             }
             if (MessageBox.Show("This action will clear booking details. Continue?", "Warning", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
